@@ -1,0 +1,14 @@
+The app is in the dist folder. Don't remove it from the folder, copy the folder instead
+I personalized the app for you, it properly simulates the fingerprint enrolment and verification process enough to make your site function properly.
+
+I exported my database to biometrics_site.sql.
+Majorly, what you need is the `fingerprint` table assuming your `staff` table still exists
+
+Then,
+Modify the simulator.ini file to suit your settings.
+
+Try running run.bat if it fails to startup normally
+
+Later.
+
+PS: q.php is the sample PHP script

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="abe3fa5d-dbc4-4027-8e2e-99bbac9cb664" name="Biometrics_Site" url="http://localhost/www/biometrics_site">
+        <fileTransfer mountedRoot="C:\xampp\htdocs\www\biometrics_site" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
