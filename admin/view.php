@@ -95,11 +95,12 @@ if (isset($array['change_password'])) {
                             <div class="span3">
                                 <nav class="sidebar dark">
                                     <ul class="">
-                                        <li class="<?= $page == 1 || ($page >= 11 && $page <= 13) ? "stick bg-darkBlue" : "" ?>">
+                                        <li class="<?= $page == 1 || ($page >= 11 && $page <= 14) ? "stick bg-darkBlue" : "" ?>">
                                             <a class="dropdown-toggle" href="#"><i class="icon-user-2"></i> Staff</a>
                                             <ul class="dropdown-menu" data-role="dropdown">
                                                 <li><a href="view.php?p=1">Staff List</a></li>
                                                 <li><a href="view.php?p=13">Add Staff</a></li>
+                                                <li><a href="view.php?p=14">Enroll Fingerprints</a></li>
                                             </ul>
                                         </li>
                                         <li class="<?=
@@ -109,11 +110,12 @@ if (isset($array['change_password'])) {
                                         ?>">
                                             <a href="view.php?p=2"><i class="icon-shipping"></i> Leave Requests</a>
                                         </li>
-                                        <li class="<?= $page == 3 || $page == 31 ? "stick bg-darkBlue" : "" ?>">
+                                        <li class="<?= $page == 3 || $page == 31 || $page == 32 ? "stick bg-darkBlue" : "" ?>">
                                             <a class="dropdown-toggle" href="#"><i class="icon-clock"></i> Attendance</a>
                                             <ul class="dropdown-menu" data-role="dropdown">
                                                 <li><a href="view.php?p=3">Info</a></li>
                                                 <li><a href="view.php?p=31">Check In</a></li>
+                                                <li><a href="view.php?p=32">Check Out</a></li>
                                             </ul>
                                         </li>
                                         <li class="<?= $page == 4 ? "stick bg-darkBlue" : "" ?>">
@@ -137,7 +139,10 @@ if (isset($array['change_password'])) {
 										break;
                                     case 13:
                                         include_once 'staff_registration.php';
-										break;
+                                        break;
+                                    case 14:
+                                        include_once 'enroll.php';
+                                        break;
                                     case 2:
                                         include_once 'leave_requests_pending.php';
                                         break;
@@ -152,6 +157,9 @@ if (isset($array['change_password'])) {
                                         break;
                                     case 31:
                                         include_once './checkin.php';
+                                        break;
+                                    case 32:
+                                        include_once './checkout.php';
                                         break;
                                     case 4:
                                         include_once './settings.php';

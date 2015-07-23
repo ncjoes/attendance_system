@@ -7,7 +7,7 @@ $query_script = "http://".$_SERVER["HTTP_HOST"]."/www/biometrics_site/q.php";
 </script>
 <script type="text/javascript" src="../js/fingerprint_helper.js"></script>
 <div>
-	<h4>ATTENDANCE: CHECK-IN</h4>
+	<h4>ATTENDANCE: CHECK-OUT</h4>
 	<div class="padding5 grid">
 		<div class="grid">
 			<form method="post" action="view.php?p=3">
@@ -15,7 +15,8 @@ $query_script = "http://".$_SERVER["HTTP_HOST"]."/www/biometrics_site/q.php";
 					<label class="span2 offset3">Select Staff:</label>
 					<select name="staff" class="span4" id="staff_select_box">
 						<?php
-						$query = "SELECT * FROM staff INNER JOIN fingerprint WHERE staff.staff_id=fingerprint.staff_id ORDER BY last_name,first_name";
+						$query = "SELECT * FROM staff INNER JOIN attendance WHERE staff.staff_id=attendance.staff_id
+								AND attendance.login_time=attendance.logout_time ORDER BY last_name,first_name";
 						$link = Utility::getDefaultDBConnection();
 						$result = mysqli_query($link, $query);
 						if($result){
@@ -36,16 +37,16 @@ $query_script = "http://".$_SERVER["HTTP_HOST"]."/www/biometrics_site/q.php";
 				<div class="row" id="button_div">
 				<?php
 				if(mysqli_num_rows($result)) {
-				?>
-					<input class="button default  bg-hover-dark span6 offset3" type="button" id="start_button"
-					       value="Checkin" onclick="doCheckin()"/>
-					<input class="button default  bg-hover-darkRed span2 offset5" type="button" id="abort_button"
-					       value="Abort" onclick="abortCheckin()" style="display: none"/>
+					?>
+						<input class="button default  bg-hover-dark span6 offset3" type="button" id="start_button"
+						       value="Checkout" onclick="doCheckout()"/>
+						<input class="button default  bg-hover-darkRed span2 offset5" type="button" id="abort_button"
+						       value="Abort" onclick="abortCheckout()" style="display: none"/>
 					<?php
 				}else{
 					?>
 					<p style="text-align: center">
-						<b>no staff members' fingerprints enrolled.</b>
+						<b>no staff members are currently checked-in</b>
 					</p>
 					<?php
 				}

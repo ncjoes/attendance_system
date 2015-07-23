@@ -4,6 +4,9 @@ require_once 'constants.php';
 require_once 'Utility.php';
 require_once 'User.php';
 
+//ini_set("date.timezone","Africa/Lagos");
+date_default_timezone_set('Africa/Lagos');
+
 ///global variables
     //Check for post request
     $array = filter_input_array(INPUT_POST);

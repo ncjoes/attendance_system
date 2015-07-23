@@ -59,7 +59,7 @@ $attendances = getAttendance($user, $array['date']);
                                         $login = strtotime($attendances[$index]['login_time']);
                                         $logout = strtotime($attendances[$index]['logout_time']);
                                         $milliToHour = 60 * 60;
-                                        $hoursWorked = ($logout - $login) / $milliToHour;
+                                        $hoursWorked = round( (($logout - $login) / $milliToHour) , 2);
 										$totalHoursWorked += $hoursWorked;
 										echo $hoursWorked;
                                         ?>

@@ -6,6 +6,12 @@ function doCheckin(){
 	doStart();
 }
 
+function doCheckout(){
+	//contact server
+	htmlGetRequest(script_url, "q=REQUEST:CHECKOUT:"+getStaffId(), wait);
+	doStart();
+}
+
 function doEnrollment(){
 	//contact server
 	htmlGetRequest(script_url, "q=REQUEST:ENROLL:"+getStaffId(), wait);
@@ -20,19 +26,49 @@ function doStart(){
 }
 
 function wait(response){
-	if(response == "waiting"){
-		intervalHandler = setInterval(
-			function(){(htmlGetRequest(script_url,"q=REQUEST:STATUS:"+getStaffId(),waitCheckin) )},
-			3000);
-	}else{
-		alert("mismatch");
+	switch (response){
+		case "waiting_checkin": {
+			intervalHandler = setInterval(
+				function(){ htmlGetRequest(script_url,"q=REQUEST:STATUS:" + getStaffId(), waitCheckin) },
+				3000);
+		}break;
+		case "waiting_checkout": {
+			intervalHandler = setInterval(
+				function(){ htmlGetRequest(script_url,"q=REQUEST:STATUS:" + getStaffId(), waitCheckout) },
+				3000);
+		}break;
+		case "waiting_enrollment": {
+			intervalHandler = setInterval(
+				function(){ htmlGetRequest(script_url,"q=REQUEST:STATUS:" + getStaffId(), waitEnrollment) },
+				3000);
+		}break;
+		default : {
+			alert(response);
+			doAbort();
+		}
 	}
 }
 
 function waitCheckin(response){
-	if(response == "SUCCESS:"+getStaffId()){
+	if(response == "SUCCESS:" + getStaffId()){
 		clearInterval(intervalHandler);
-		alert("checked in successfully");
+		alert("Staff checked-in successfully");
+		doAbort();
+	}
+}
+
+function waitCheckout(response){
+	if(response == "SUCCESS:" + getStaffId()){
+		clearInterval(intervalHandler);
+		alert("Staff checked-out successfully");
+		doAbort();
+	}
+}
+
+function waitEnrollment(response){
+	if(response == "SUCCESS:" + getStaffId()){
+		clearInterval(intervalHandler);
+		alert("Staff fingerprint enrollment successful");
 		doAbort();
 	}
 }
@@ -45,17 +81,22 @@ function doAbort(){
 }
 
 function abortCheckin(){
-	htmlGetRequest(script_url, "q=REPLY:ABORT:"+getStaffId(), null);
+	htmlGetRequest(script_url, "q=REPLY:ABORT:" + getStaffId(), null);
+	doAbort();
+}
+
+function abortCheckout(){
+	htmlGetRequest(script_url, "q=REPLY:ABORT:" + getStaffId(), null);
 	doAbort();
 }
 
 function abortEnrollment(){
-	htmlGetRequest(script_url, "q=REPLY:ABORT_ENROLMENT:"+getStaffId(), null);
+	htmlGetRequest(script_url, "q=REPLY:ABORT_ENROLMENT:" + getStaffId(), null);
 	doAbort();
 }
 
 function getStaffId(){
-	return getSelectedOption(staffIdTag);
+	return getSelectedOption(staffIdTag).toUpperCase();
 }
 
 function getSelectedOption(tagId){
@@ -72,7 +113,6 @@ function htmlGetRequest(url, params, handlerFunction){
 	var requestObject = makeHttpRequest();
 	requestObject.open('GET', url + '?' + params, true);
 	requestObject.send(null);
-	var response = null;
 	requestObject.onreadystatechange = function(){
 		if(requestObject.readyState == 4){
 			if (requestObject.status == 200){

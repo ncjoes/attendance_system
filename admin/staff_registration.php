@@ -45,34 +45,10 @@ if(isset($array['submit'])){
 <div  class="panel-content">
 <?php
 if ($isFormRequest && $success) {
-	$query_script = "http://".$_SERVER["HTTP_HOST"]."/www/biometrics_site/q.php";
 ?>
     <div class="panel-content">
         <p class="fg-green">New staff <?= $array['last_name'].' '.$array['first_name'] ?> registered.</p>
     </div>
-	<script type="text/javascript">
-		var staffIdTag = "staffId";
-		var script_url = <?= "\"{$query_script}\""; ?>;
-		doEnrollment(); alert("hey");
-	</script>
-	<script type="text/javascript" src="../js/functionsLib.js"></script>
-
-	<div style="display: none;">
-		<select name="staffId" id="StaffId"><option value="<?= $array['staff_id']; ?>"></option></select>
-	</div>
-
-	<div class="row" id="loading_div" style="visibility: hidden;">
-		<p style="text-align: center">
-			<img src="../img/loading_dark_large.gif" width="120" height="120"/>
-			<b>waiting for finger-print enrollment...</b>
-		</p>
-	</div>
-	<div class="row" id="button_div">
-		<input class="button default  bg-hover-dark span6 offset3" type="button" id="start_button"
-		       value="Enroll Fingerprints" onclick="doEnrollment()"/>
-		<input class="button default  bg-hover-darkRed span2 offset5" type="button" id="abort_button"
-		       value="Abort" onclick="abortEnrollment(); window.location = 'staff_registration.php'" style="display: none"/>
-	</div>
 
 <?php }else{ ?>                               
 <form method='post' action='view.php?p=13'>
