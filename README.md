@@ -1,4 +1,4 @@
-<h1>Staff Management System</h1>
+<h1>Personnel Attendance Management System with Bio-Metrics Authentication, using a 3-star Architechture</h1>
 
 <h3>Features:</h3>
     i. Staff Checkin/out with biometrics
